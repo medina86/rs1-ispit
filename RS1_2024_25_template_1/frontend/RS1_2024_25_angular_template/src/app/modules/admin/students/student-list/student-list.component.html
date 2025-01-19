@@ -1,0 +1,67 @@
+<h2>Student Management</h2>
+
+
+<div class="search-container">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input [formControl]="SearcName" matInput placeholder="Search">
+  </mat-form-field>
+</div>
+<mat-paginator (page)=pageStudents($event) [length]="students?.totalCount" [pageSizeOptions]="[20, 50, 100]" [pageSize]="20"
+               showFirstLastButtons></mat-paginator>
+<button (click)="filterStd()" color="warn" mat-button>
+  <mat-icon>show</mat-icon>
+  Hide/Show deleted
+</button>
+
+<div *ngIf="dataSource.data.length === 0" class="no-data">
+  <p>No students to display.</p>
+</div>
+
+<table [dataSource]="dataSource!" class="mat-elevation-z8" mat-table matSort>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="firstName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let std"><div [ngStyle]="std.isDeleted ? deletedCss : {}">
+      {{ std.firstName }}
+    </div></mat-cell>
+  </ng-container>
+
+  <!-- Region Name Column -->
+  <ng-container matColumnDef="lastName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+    <mat-cell *matCellDef="let std"><div [ngStyle]="std.isDeleted ? deletedCss : {}">
+      {{ std.lastName }}
+    </div></mat-cell>
+  </ng-container>
+
+  <!-- Country Name Column -->
+  <ng-container matColumnDef="studentNumber">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Country Name</mat-header-cell>
+    <mat-cell *matCellDef="let std"><div [ngStyle]="std.isDeleted ? deletedCss : {}">
+      {{ std.firstName }}
+    </div></mat-cell>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let city">
+      <button (click)="updateStudent(city.id)" color="primary" mat-button>
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+      <button (click)="openMyConfirmDialog(city.id)" color="warn" mat-button>
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Table Header and Rows -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>
+
+

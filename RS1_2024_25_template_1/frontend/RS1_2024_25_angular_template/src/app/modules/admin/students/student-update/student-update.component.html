@@ -1,0 +1,52 @@
+<mat-card class="city-form-card">
+  <mat-card-title>{{"STUDENT-UPDATE.TITLE" | translate }}</mat-card-title>
+  <form (ngSubmit)="updateStudent()" [formGroup]="form">
+
+    <mat-label>{{ "STUDENT-UPDATE.DATUM" | translate }}</mat-label>
+    <input type="date" formControlName="birthDate">
+    @if(form.get('bdValidator')?.hasError('min')){
+      <p>datum nije u opsegu</p>
+    }
+    @if(form.get('bdValidator')?.hasError('max')){
+      <p>datum nije u opsegu</p>
+    }
+    <mat-label>{{"STUDENT-UPDATE.TELEFON" | translate }}</mat-label>
+    <input formControlName="phone" matInput required>
+<br><br>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="countryId" required>
+        <mat-option *ngFor="let country of countries" [value]="country.id">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('countryId')?.invalid && form.get('countryId')?.touched">
+        <ng-container *ngIf="form.get('countryId')?.errors as errors">
+          <small *ngIf="errors['required']">Country is required.</small>
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Region Dropdown -->
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Municipality</mat-label>
+      <mat-select formControlName="municipalityId" required>
+        <mat-option *ngFor="let region of municipalities" [value]="region.id">
+          {{ region.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('municipalityId')?.touched && form.get('municipalityId')?.errors">
+        <span *ngIf="form.get('municipalityId')?.errors?.['required']">Municipality is required.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-buttons">
+      <button color="primary" mat-raised-button type="submit">
+        {{ "STUDENT-UPDATE.SPASI" | translate  }}
+      </button>
+      <button color="warn" mat-raised-button routerLink="/admin/cities" type="button">
+        {{ "STUDENT-UPDATE.OTKAZI" | translate  }}
+      </button>
+    </div>
+  </form>
+</mat-card>
