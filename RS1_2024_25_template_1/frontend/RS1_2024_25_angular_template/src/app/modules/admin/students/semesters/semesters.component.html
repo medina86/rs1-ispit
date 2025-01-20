@@ -1,0 +1,109 @@
+<h1>Matriculation record</h1>
+<h3>Student ID: {{ student?.id }}</h3>
+<h3>Student Ime: {{ student?.firstName }}</h3>
+<h3>Student Prezime: {{ student?.lastName }}</h3>
+
+<mat-table [dataSource]="dataSource!">
+  <!-- Name Column -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-cell *matCellDef="let s">
+      <div>
+        {{ s.id }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Region Name Column -->
+  <ng-container matColumnDef="akademska">
+    <mat-header-cell *matHeaderCellDef>Akademska godina</mat-header-cell>
+    <mat-cell *matCellDef="let s">
+      <div>
+        {{ s.akademskaGodina }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Country Name Column -->
+  <ng-container matColumnDef="godinaStudija">
+    <mat-header-cell *matHeaderCellDef>Godina studija</mat-header-cell>
+    <mat-cell *matCellDef="let s">
+      <div>
+        {{ s.godinaStudija }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="obnova">
+    <mat-header-cell *matHeaderCellDef>Obnova</mat-header-cell>
+    <mat-cell *matCellDef="let s">
+      <div>
+        {{ s.obnova }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="datumUpisa">
+    <mat-header-cell *matHeaderCellDef>Datum upisa</mat-header-cell>
+    <mat-cell *matCellDef="let s">
+      <div>
+        {{s.datumUpisa}}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="snimio">
+    <mat-header-cell *matHeaderCellDef>Snimio</mat-header-cell>
+    <mat-cell *matCellDef="let s">
+      <div>
+        {{ s.snimio }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Table Header and Rows -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<button mat-flat-button (click)="showHideCreate()">Upiši semestar</button>
+
+<div [ngStyle]="createNew ? {'display': 'none'} : {'display': 'block'}">
+
+  <form [formGroup]="form" (ngSubmit)="createYos()">
+
+    <label>Datum upisa</label>
+    <input type="date" formControlName="datumUpisa">
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Godina studija</mat-label>
+      <input formControlName="godinaStudija" matInput required type="number" min="1" max="5"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Akademska godina</mat-label>
+      <mat-select formControlName="akademskaGodinaId" required>
+        <mat-option *ngFor="let akademskaGodina of academicYears" [value]="akademskaGodina.id">
+          {{ akademskaGodina.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Cijena studija</mat-label>
+      <input formControlName="cijenaSkolarine" matInput required type="number"/>
+      <mat-error *ngIf="form.get('cijenaSkolarine')?.invalid && form.get('cijenaSkolarine')?.touched">
+
+      </mat-error>
+    </mat-form-field>
+
+    <label>Obnova</label>
+    <mat-checkbox formControlName="obnova"></mat-checkbox>
+
+    <button type="submit" mat-flat-button>Spasi</button>
+    <button type="button" (click)="showHideCreate()" mat-stroked-button>Otkazi</button>
+  </form>
+
+
+</div>
+

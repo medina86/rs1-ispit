@@ -17,6 +17,7 @@ import {
 } from './rxjs-subject-message-example/rxjs-subject-message-example.component';
 import {StudentListComponent} from './students/student-list/student-list.component';
 import {StudentUpdateComponent} from './students/student-update/student-update.component';
+import {SemestersComponent} from './students/semesters/semesters.component';
 
 //komentar
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
       {path: 'dashboard', component: DashboardComponent},
       {path: 'students', component: StudentListComponent},
       {path: 'students/update/:id', component: StudentUpdateComponent},
-
+      {path: 'students/semesters/:id', component: SemestersComponent},
       {path: 'cities1', component: Cities1Component},
       {path: 'cities2', component: Cities2Component},
       {path: 'cities3', component: Cities3Component},

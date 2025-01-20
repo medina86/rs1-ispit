@@ -117,5 +117,9 @@ export class StudentListComponent implements  OnInit {
       this.dataSource.data=this.students!.dataItems.filter(val=>!val.isDeleted);
     }
   }
+
+  openSemester(id:number) {
+    this.router.navigate(['/admin/students/semesters/', id]);
+  }
 }
 

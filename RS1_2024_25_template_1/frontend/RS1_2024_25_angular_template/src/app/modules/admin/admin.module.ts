@@ -43,6 +43,8 @@ import { Receiver3Component } from './rxjs-subject-message-example/receiver3/rec
 import { StudentListComponent } from './students/student-list/student-list.component';
 import { StudentUpdateComponent } from './students/student-update/student-update.component';
 import {TranslatePipe} from "@ngx-translate/core";
+import { SemestersComponent } from './students/semesters/semesters.component';
+import {MatCheckbox} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -66,6 +68,7 @@ import {TranslatePipe} from "@ngx-translate/core";
     Receiver3Component,
     StudentListComponent,
     StudentUpdateComponent,
+    SemestersComponent,
   ],
   imports: [
     CommonModule,
@@ -92,6 +95,7 @@ import {TranslatePipe} from "@ngx-translate/core";
     MatProgressSpinner,
     TranslatePipe,
     MatCardTitle,
+    MatCheckbox,
     // Omogućava pristup svemu što je eksportovano iz SharedModule
   ],
   providers: []
